@@ -205,3 +205,39 @@ test $testpath *FLAGS:
         cp ${build_dir}/keycode_events.log ${config_dir}/keycode_events.snapshot
     fi
     diff -auZ ${config_dir}/keycode_events.snapshot ${build_dir}/keycode_events.log
+
+build-roba:
+    just build roBa_l
+    just build roBa_r
+    just build settings_reset
+
+draw-roba:
+    # parse
+    keymap -c config/zmk-config-roBa/keymap-drawer/keymap_drawer.config.yaml \
+        parse -z config/zmk-config-roBa/config/roBa.keymap \
+        > config/zmk-config-roBa/keymap-drawer/roBa.yaml
+
+    # draw
+    keymap -c config/zmk-config-roBa/keymap-drawer/keymap_drawer.config.yaml \
+        draw config/zmk-config-roBa/keymap-drawer/roBa.yaml \
+        -j config/zmk-config-roBa/config/roBa.json \
+        > config/zmk-config-roBa/keymap-drawer/roBa.svg
+
+build-mona2:
+    just build mona2_l
+    just build mona2_r
+    #just build mona2
+    just build settings_reset
+
+draw-mona2:
+    # parse
+    keymap -c config/zmk-config-moNa2-v2/keymap-drawer/keymap_drawer.config.yaml \
+        parse -z config/zmk-config-moNa2-v2/config/mona2.keymap \
+        > config/zmk-config-moNa2-v2/keymap-drawer/mona2.yaml
+
+    # draw
+    keymap -c config/zmk-config-moNa2-v2/keymap-drawer/keymap_drawer.config.yaml \
+        draw config/zmk-config-moNa2-v2/keymap-drawer/mona2.yaml \
+        -j config/zmk-config-moNa2-v2/config/mona2.json \
+        > config/zmk-config-moNa2-v2/keymap-drawer/mona2.svg
+
