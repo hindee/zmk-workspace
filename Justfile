@@ -242,13 +242,24 @@ draw-mona2:
         -o config/zmk-config-moNa2-v2/keymap-drawer/mona2.svg
 
 draw-corchibi:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    corchibi="config/zmk-config-Corchibi"
+    theme=$(cat "${corchibi}/keymap-drawer/theme.txt" | tr -d '[:space:]')
+
+    # テーマを適用した config を生成する
+    python "${corchibi}/keymap-drawer/merge_config.py" \
+        --base  "${corchibi}/keymap-drawer/keymap_drawer.config.template.yaml" \
+        --theme "${corchibi}/keymap-drawer/themes/${theme}.yaml" \
+        --output "${corchibi}/keymap-drawer/keymap_drawer.config.yaml"
+
     # parse
-    keymap -c config/zmk-config-Corchibi/keymap-drawer/keymap_drawer.config.yaml \
-        parse -z config/zmk-config-Corchibi/config/Corchibi.keymap \
-        -o config/zmk-config-Corchibi/keymap-drawer/Corchibi.yaml
+    keymap -c "${corchibi}/keymap-drawer/keymap_drawer.config.yaml" \
+        parse -z "${corchibi}/config/Corchibi.keymap" \
+        -o "${corchibi}/keymap-drawer/Corchibi.yaml"
 
     # draw
-    keymap -c config/zmk-config-Corchibi/keymap-drawer/keymap_drawer.config.yaml \
-        draw config/zmk-config-Corchibi/keymap-drawer/Corchibi.yaml \
-        -j config/zmk-config-Corchibi/config/Corchibi.json \
-        -o config/zmk-config-Corchibi/keymap-drawer/Corchibi.svg
+    keymap -c "${corchibi}/keymap-drawer/keymap_drawer.config.yaml" \
+        draw "${corchibi}/keymap-drawer/Corchibi.yaml" \
+        -j "${corchibi}/config/Corchibi.json" \
+        -o "${corchibi}/keymap-drawer/Corchibi.svg"
