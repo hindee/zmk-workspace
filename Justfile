@@ -84,7 +84,7 @@ init *config_path:
         config_path=$(echo "$candidates" | fzf \
             --prompt="Select ZMK config: " \
             --header="Choose a configuration to initialize" \
-            --preview="ls -1a config/{}")
+            --preview="ls -1a ./{}")
 
         if [[ -z "$config_path" ]]; then
             echo "No config selected. Exiting..."
@@ -215,13 +215,13 @@ draw-roba:
     # parse
     keymap -c config/zmk-config-roBa/keymap-drawer/keymap_drawer.config.yaml \
         parse -z config/zmk-config-roBa/config/roBa.keymap \
-        > config/zmk-config-roBa/keymap-drawer/roBa.yaml
+        -o config/zmk-config-roBa/keymap-drawer/roBa.yaml
 
     # draw
     keymap -c config/zmk-config-roBa/keymap-drawer/keymap_drawer.config.yaml \
         draw config/zmk-config-roBa/keymap-drawer/roBa.yaml \
         -j config/zmk-config-roBa/config/roBa.json \
-        > config/zmk-config-roBa/keymap-drawer/roBa.svg
+        -o config/zmk-config-roBa/keymap-drawer/roBa.svg
 
 build-mona2:
     just build mona2_l
@@ -233,11 +233,22 @@ draw-mona2:
     # parse
     keymap -c config/zmk-config-moNa2-v2/keymap-drawer/keymap_drawer.config.yaml \
         parse -z config/zmk-config-moNa2-v2/config/mona2.keymap \
-        > config/zmk-config-moNa2-v2/keymap-drawer/mona2.yaml
+        -o config/zmk-config-moNa2-v2/keymap-drawer/mona2.yaml
 
     # draw
     keymap -c config/zmk-config-moNa2-v2/keymap-drawer/keymap_drawer.config.yaml \
         draw config/zmk-config-moNa2-v2/keymap-drawer/mona2.yaml \
         -j config/zmk-config-moNa2-v2/config/mona2.json \
-        > config/zmk-config-moNa2-v2/keymap-drawer/mona2.svg
+        -o config/zmk-config-moNa2-v2/keymap-drawer/mona2.svg
 
+draw-corchibi:
+    # parse
+    keymap -c config/zmk-config-Corchibi/keymap-drawer/keymap_drawer.config.yaml \
+        parse -z config/zmk-config-Corchibi/config/Corchibi.keymap \
+        -o config/zmk-config-Corchibi/keymap-drawer/Corchibi.yaml
+
+    # draw
+    keymap -c config/zmk-config-Corchibi/keymap-drawer/keymap_drawer.config.yaml \
+        draw config/zmk-config-Corchibi/keymap-drawer/Corchibi.yaml \
+        -j config/zmk-config-Corchibi/config/Corchibi.json \
+        -o config/zmk-config-Corchibi/keymap-drawer/Corchibi.svg
